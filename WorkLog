@@ -9,4 +9,8 @@ Week 2: practiced coding using gpio pins, and watched tutorials. - 2h
         download and set up Python and PyCharm IDE -.5h
         code the start of program while learning the synax and keywords of language - 1h
                 got the program to run and function properly
-        
+Week 3: Set up Remote Desktop on Pi to make it easier to work - .25h
+        Designed and made breadboard of GPIO(buttons, LED, and LCD display) - 1.5h
+        code in GPIO to my previous program - 1.5h
+        try to get the buttons to work right(still have not succeeded) - 3h of frustration
+                --Updated code is in master folder--
