@@ -107,7 +107,7 @@ while play == 1:
     for val in output:  # reads each value individually and compares it to expected value to see if the user is correct
         sleep(.5)
         i = 0
-
+        """
         GPIO.wait_for_edge((yellowBUTTONpin or blueBUTTONpin or redBUTTONpin or greenBUTTONpin), GPIO.RISING)
 
         if redBUTTONpin == GPIO.HIGH:
@@ -128,6 +128,9 @@ while play == 1:
         GPIO.output(redLEDpin, GPIO.LOW)
         GPIO.output(greenLEDpin, GPIO.LOW)
         GPIO.output(yellowLEDpin, GPIO.LOW)
+        """
+
+        red = 0
 
         if i != val:
             play = 0

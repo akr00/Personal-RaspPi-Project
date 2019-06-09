@@ -1,5 +1,3 @@
-
-  
 # Created by: Aiden Ridgeway
 #
 from PCF8574 import PCF8574_GPIO
@@ -26,7 +24,6 @@ yellowBUTTONpin = 38
 
 
 def setup():
-    
     GPIO.cleanup()
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(redLEDpin, GPIO.OUT)
@@ -37,9 +34,13 @@ def setup():
     GPIO.setup(greenBUTTONpin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     GPIO.setup(blueBUTTONpin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     GPIO.setup(yellowBUTTONpin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
+
 setup()
 global i
 i = 0
+
+
 def destroy():
     lcd.clear()
 
@@ -68,16 +69,26 @@ lcd.begin(16, 2)
 
 def red(channel):
     print("red")
+    global i
     i = 1
     return 1
+
+
 def blue(channel):
     print("blue")
+    global i
     i = 2
+
+
 def green(channel):
     print("green")
+    global i
     i = 3
+
+
 def yellow(channel):
     print("yellow")
+    global i
     i = 4
 
 
@@ -112,6 +123,7 @@ while play == 1:
     lcd.message('Enter all of the\n previous values')
     for val in output:  # reads each value individually and compares it to expected value to see if the user is correct
         sleep(.5)
+        global i
         i = 0
         """
         GPIO.wait_for_edge((yellowBUTTONpin or blueBUTTONpin or redBUTTONpin or greenBUTTONpin), GPIO.RISING)
@@ -131,17 +143,16 @@ while play == 1:
             
             
         """
-        
-        GPIO.add_event_detect(redBUTTONpin,GPIO.RISING,callback=red)
-        GPIO.add_event_detect(greenBUTTONpin,GPIO.RISING,callback=green)
-        GPIO.add_event_detect(yellowBUTTONpin,GPIO.RISING,callback=yellow)
-        GPIO.add_event_detect(blueBUTTONpin,GPIO.RISING,callback=blue) 
-        
+
+        GPIO.add_event_detect(redBUTTONpin, GPIO.RISING, callback=red)
+        GPIO.add_event_detect(greenBUTTONpin, GPIO.RISING, callback=green)
+        GPIO.add_event_detect(yellowBUTTONpin, GPIO.RISING, callback=yellow)
+        GPIO.add_event_detect(blueBUTTONpin, GPIO.RISING, callback=blue)
+
         message = input("Press enter to quit\n\n")
         print(val)
         print(i)
-        print(h)
-       
+
 
         if i != val:
             play = 0
@@ -149,4 +160,3 @@ while play == 1:
 score = str(len(output) - 1)
 destroy()
 print("Your Score was: " + score)
-
