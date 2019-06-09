@@ -77,22 +77,23 @@ def red(channel):
 def blue(channel):
     print("blue")
     global i
-    i = 2
+    i = 4
 
 
 def green(channel):
     print("green")
     global i
-    i = 3
+    i = 2
 
 
 def yellow(channel):
     print("yellow")
     global i
-    i = 4
+    i = 3
 
 
 while play == 1:
+    
     lcd.setCursor(0, 0)
     a = (random.randint(1, 4))
     output.append(a)
@@ -122,12 +123,12 @@ while play == 1:
     print("Enter all of the previous values")
     lcd.message('Enter all of the\n previous values')
     for val in output:  # reads each value individually and compares it to expected value to see if the user is correct
+        setup()
         sleep(.5)
         global i
         i = 0
         """
         GPIO.wait_for_edge((yellowBUTTONpin or blueBUTTONpin or redBUTTONpin or greenBUTTONpin), GPIO.RISING)
-
         if redBUTTONpin == GPIO.HIGH:
             GPIO.output(redLEDpin, GPIO.HIGH)
             i = 1
@@ -148,11 +149,13 @@ while play == 1:
         GPIO.add_event_detect(greenBUTTONpin, GPIO.RISING, callback=green)
         GPIO.add_event_detect(yellowBUTTONpin, GPIO.RISING, callback=yellow)
         GPIO.add_event_detect(blueBUTTONpin, GPIO.RISING, callback=blue)
-
-        message = input("Press enter to quit\n\n")
+        
+        while i == 0:
+            sleep(.01)
+        
         print(val)
         print(i)
-
+        
 
         if i != val:
             play = 0
