@@ -71,26 +71,34 @@ def red(channel):
     print("red")
     global i
     i = 1
-    return 1
+    GPIO.output(redLEDpin, GPIO.HIGH)
+    sleep(.1)
+    GPIO.output(redLEDpin, GPIO.LOW)
 
 
 def blue(channel):
     print("blue")
     global i
     i = 4
-
+    GPIO.output(blueLEDpin, GPIO.HIGH)
+    sleep(.1)
+    GPIO.output(blueLEDpin, GPIO.LOW)
 
 def green(channel):
     print("green")
     global i
     i = 2
-
+    GPIO.output(greenLEDpin, GPIO.HIGH)
+    sleep(.1)
+    GPIO.output(greenLEDpin, GPIO.LOW)
 
 def yellow(channel):
     print("yellow")
     global i
     i = 3
-
+    GPIO.output(yellowLEDpin, GPIO.HIGH)
+    sleep(.1)
+    GPIO.output(yellowLEDpin, GPIO.LOW)
 
 while play == 1:
     
@@ -124,26 +132,10 @@ while play == 1:
     lcd.message('Enter all of the\n previous values')
     for val in output:  # reads each value individually and compares it to expected value to see if the user is correct
         setup()
-        sleep(.5)
+        sleep(.1)
         global i
         i = 0
-        """
-        GPIO.wait_for_edge((yellowBUTTONpin or blueBUTTONpin or redBUTTONpin or greenBUTTONpin), GPIO.RISING)
-        if redBUTTONpin == GPIO.HIGH:
-            GPIO.output(redLEDpin, GPIO.HIGH)
-            i = 1
-        elif greenBUTTONpin == GPIO.HIGH:
-            GPIO.output(greenBUTTONpin, GPIO.HIGH)
-            i = 2
-        elif yellowBUTTONpin == GPIO.HIGH:
-            GPIO.output(yellowBUTTONpin, GPIO.HIGH)
-            i = 3
-        elif blueBUTTONpin == GPIO.HIGH:
-            GPIO.output(blueBUTTONpin, GPIO.HIGH)
-            i = 4
-            
-            
-        """
+        
 
         GPIO.add_event_detect(redBUTTONpin, GPIO.RISING, callback=red)
         GPIO.add_event_detect(greenBUTTONpin, GPIO.RISING, callback=green)
@@ -163,3 +155,7 @@ while play == 1:
 score = str(len(output) - 1)
 destroy()
 print("Your Score was: " + score)
+lcd.message('Your Score \nwas: ' + score)
+sleep(3)
+mcp.output(3, 0)
+destroy()
