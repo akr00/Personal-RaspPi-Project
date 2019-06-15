@@ -68,39 +68,48 @@ lcd.begin(16, 2)
 
 
 def red(channel):
-    print("red")
     global i
-    i = 1
+    i = 1 
     GPIO.output(redLEDpin, GPIO.HIGH)
-    sleep(.1)
+    sleep(.2)
     GPIO.output(redLEDpin, GPIO.LOW)
+    print("red")
+     
+    
 
 
 def blue(channel):
-    print("blue")
     global i
     i = 4
     GPIO.output(blueLEDpin, GPIO.HIGH)
-    sleep(.1)
+    sleep(.2)
     GPIO.output(blueLEDpin, GPIO.LOW)
+    print("blue")
+    
+    
 
 
 def green(channel):
-    print("green")
     global i
     i = 2
     GPIO.output(greenLEDpin, GPIO.HIGH)
-    sleep(.1)
+    sleep(.2)
     GPIO.output(greenLEDpin, GPIO.LOW)
+    print("green")
+    
+    
 
 
 def yellow(channel):
-    print("yellow")
     global i
     i = 3
     GPIO.output(yellowLEDpin, GPIO.HIGH)
-    sleep(.1)
+    sleep(.2)
     GPIO.output(yellowLEDpin, GPIO.LOW)
+    print("yellow")
+    
+    
+
 
 
 while play == 1:
@@ -109,8 +118,9 @@ while play == 1:
     a = (random.randint(1, 4))
     output.append(a)
     print("Ready...")
-    sleep(.5)
+    sleep(.7)
     cls()
+    destroy()
     for val in output:  # shows each value in the list once, on its own screen
         if val == 1:
             GPIO.output(redLEDpin, GPIO.HIGH)
@@ -134,32 +144,34 @@ while play == 1:
     print("Enter all of the previous values")
     lcd.message('Enter all of the\n previous values')
     for val in output:  # reads each value individually and compares it to expected value to see if the user is correct
-        c = 0
-        if (c == 0) :
-            setup()
-            sleep(.1)
-            global i
-            i = 0
-
+        setup()
+        GPIO.remove_event_detect(redBUTTONpin)
+        GPIO.remove_event_detect(greenBUTTONpin)
+        GPIO.remove_event_detect(yellowBUTTONpin)
+        GPIO.remove_event_detect(blueBUTTONpin)
+        sleep(.1)
+        global i
+        i = 0
+        if (i == 0):
             GPIO.add_event_detect(redBUTTONpin, GPIO.RISING, callback=red)
             GPIO.add_event_detect(greenBUTTONpin, GPIO.RISING, callback=green)
             GPIO.add_event_detect(yellowBUTTONpin, GPIO.RISING, callback=yellow)
             GPIO.add_event_detect(blueBUTTONpin, GPIO.RISING, callback=blue)
 
-            while i == 0:
-                sleep(.01)
-
-            print(val)
-            print(i)
-            c = c+1
-
+        while i == 0:
+            sleep(.1)
+        
+        
+        print(val)
+        print(i)
+        
         if i != val:
             play = 0
 
 score = str(len(output) - 1)
 destroy()
 print("Your Score was: " + score)
-lcd.message('Your Score \nwas: ' + score)
+lcd.message('Your Score \n was: ' + score)
 sleep(3)
 mcp.output(3, 0)
 destroy()
